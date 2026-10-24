@@ -45,11 +45,13 @@ Test set of [n] subjects, Dice measured at the original 1 mm resolution against 
 
 ## Notebooks
 
-| Notebook | What it does | Runtime |
+| Notebook | What it does | |
 |---|---|---|
-| [01_data_and_labels](notebooks/01_data_and_labels.ipynb) | Checks the data, compares the two label sets, plots how big each structure is | CPU |
-| [02_train_and_evaluate](notebooks/02_train_and_evaluate.ipynb) | Trains both U-Nets, tests them, writes `results/summary.md` | GPU |
-| [03_structure_volumes](notebooks/03_structure_volumes.ipynb) | Compares U-Net and FreeSurfer volumes, exports a volume table | CPU |
+| [01_data_and_labels](notebooks/01_data_and_labels.ipynb) | Checks the data, compares the two label sets, plots how big each structure is | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/anupbagale/Whole-Brain-Segmentation/blob/main/notebooks/01_data_and_labels.ipynb) |
+| [02_train_and_evaluate](notebooks/02_train_and_evaluate.ipynb) | Trains both U-Nets on a GPU, tests them, writes `results/summary.md` | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/anupbagale/Whole-Brain-Segmentation/blob/main/notebooks/02_train_and_evaluate.ipynb) |
+| [03_structure_volumes](notebooks/03_structure_volumes.ipynb) | Compares U-Net and FreeSurfer volumes, exports a volume table | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/anupbagale/Whole-Brain-Segmentation/blob/main/notebooks/03_structure_volumes.ipynb) |
+
+Click a badge to open the notebook in Colab. Training saves a checkpoint to Google Drive after every epoch, so if Colab disconnects you can run all cells again and it continues where it stopped.
 
 Each notebook opens in Colab with the badge at the top of it. Training saves a checkpoint to Google Drive after every epoch, so if Colab disconnects you can run all cells again and it continues where it stopped.
 
