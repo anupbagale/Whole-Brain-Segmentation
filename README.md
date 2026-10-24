@@ -53,8 +53,6 @@ Test set of [n] subjects, Dice measured at the original 1 mm resolution against 
 
 Click a badge to open the notebook in Colab. Training saves a checkpoint to Google Drive after every epoch, so if Colab disconnects you can run all cells again and it continues where it stopped.
 
-Each notebook opens in Colab with the badge at the top of it. Training saves a checkpoint to Google Drive after every epoch, so if Colab disconnects you can run all cells again and it continues where it stopped.
-
 ## Running it
 
 1. Get access to OASIS-3 (see below) and put the T1 images and the `aseg` label maps in two folders on your Google Drive.
