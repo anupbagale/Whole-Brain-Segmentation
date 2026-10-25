@@ -8,6 +8,8 @@ FreeSurfer takes hours to segment one brain scan. A 3D U-Net can do it in second
 
 ![FreeSurfer labels and U-Net prediction on a test subject](figures/example_segmentation.png)
 
+*One test subject (OAS30028) that the model never saw during training. Top: FreeSurfer labels used as the reference. Bottom: prediction of the 45-class U-Net. Columns: sagittal, coronal and axial slices, in the standard FreeSurfer colours. This subject has the highest mean Dice of the 30 test subjects (0.775); most score between 0.72 and 0.77.*
+
 ## Questions
 
 1. **How well does one network segment all 44 structures?** The structures differ a lot in size, so the small ones are hard to learn next to the big ones.
