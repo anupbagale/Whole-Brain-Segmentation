@@ -58,7 +58,7 @@ Volumes from the 45-class model compared with FreeSurfer on the 30 test subjects
 
 ## How it works
 
-- **Data.** T1-weighted scans from OASIS-3 with their FreeSurfer `aseg` label maps (256 × 256 × 256, 1 mm). Subjects are split at random into training, validation and test sets, and all scans of one person stay in the same set.
+- **Data.** T1-weighted scans from OASIS-3 with their FreeSurfer `aseg` label maps (256 × 256 × 256, 1 mm). Subjects are split at random into training, validation and test sets, and all scans of one person stay in the same set. The exact split (scan IDs only) is in [`results/data_split.json`](results/data_split.json), so anyone with OASIS-3 access can repeat it.
 - **Labels.** FreeSurfer label values (2, 3, 4, ... 255) are mapped to class indices 0 to 44 for training and mapped back when predictions are saved. The reduced set keeps 27 structures and sets the rest to background. Both lists are in [`wbseg/labels.py`](wbseg/labels.py).
 - **Preprocessing.** The whole head is resized to 128³ and intensities are scaled to 0 to 1 using the 0.5th and 99.5th percentiles. Training uses small random rotations and scaling, intensity scaling and noise. There are no left-right flips, because a flip would turn left structures into right ones.
 - **Model.** MONAI 3D U-Net with residual units, 5 levels (16 to 256 channels), batch norm. Loss: Dice + cross-entropy. Adam, learning rate 1e-3 with cosine decay, mixed precision, 150 epochs, keeping the epoch with the best validation Dice. One epoch took about 30 seconds on a Colab T4 GPU.
@@ -99,7 +99,7 @@ wbseg/
   volumes.py    structure volumes from any label map, agreement with FreeSurfer
   plots.py      figures
 notebooks/      the three notebooks above
-results/        test summary, structure sizes and volume agreement (no per-subject data)
+results/        test summary, data split, structure sizes and volume agreement (no per-subject data)
 figures/        all figures in this README
 tests/          tests on synthetic brains, run by GitHub Actions on every push
 ```
