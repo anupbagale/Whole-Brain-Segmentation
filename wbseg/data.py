@@ -45,11 +45,22 @@ def find_pairs(image_dir, label_dir):
     """
     images = sorted(glob(os.path.join(str(image_dir), "**", "*.nii*"), recursive=True))
     labels = sorted(glob(os.path.join(str(label_dir), "**", "*.nii*"), recursive=True))
-    label_by_id = {subject_id(p): p for p in labels}
-    pairs = [{"id": subject_id(i), "image": i, "label": label_by_id[subject_id(i)]}
-             for i in images if subject_id(i) in label_by_id]
-    if not pairs and images and len(images) == len(labels):
-        print("no OASIS IDs in the file names, pairing images and labels in sorted order")
+    print(f"found {len(images)} images in {image_dir}")
+    print(f"found {len(labels)} label maps in {label_dir}")
+    if not images or not labels:
+        print("check IMAGE_DIR and LABEL_DIR: one of the folders has no .nii / .nii.gz files")
+        return []
+
+    # 1) same scan ID (OAS30001_MR_d0129), 2) same subject (OAS30001), 3) sorted order
+    pairs = []
+    for key in (subject_id, lambda p: subject_of(subject_id(p))):
+        label_by_id = {key(p): p for p in labels}
+        pairs = [{"id": subject_id(i), "image": i, "label": label_by_id[key(i)]}
+                 for i in images if key(i) in label_by_id]
+        if pairs:
+            break
+    if not pairs and len(images) == len(labels):
+        print("file names do not share an ID, pairing images and labels in sorted order")
         pairs = [{"id": subject_id(i), "image": i, "label": l} for i, l in zip(images, labels)]
     if len(pairs) < len(images):
         print(f"warning: {len(images) - len(pairs)} images have no matching label map")

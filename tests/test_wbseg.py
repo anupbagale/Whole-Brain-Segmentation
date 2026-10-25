@@ -63,6 +63,20 @@ def test_sessions_of_one_subject_stay_together():
     assert not (subjects[0] & subjects[1] or subjects[0] & subjects[2] or subjects[1] & subjects[2])
 
 
+def test_pairing_when_names_differ(tmp_path):
+    for d in ("img", "lab"):
+        (tmp_path / d).mkdir()
+    for s in ("OAS30001", "OAS30002"):
+        for d, name in (("img", f"{s}_MR_d0129_T1w.nii.gz"), ("lab", f"{s}_aseg.nii.gz")):
+            nib.save(nib.Nifti1Image(np.zeros((2, 2, 2), np.int16), np.eye(4)), tmp_path / d / name)
+    pairs = find_pairs(tmp_path / "img", tmp_path / "lab")
+    assert len(pairs) == 2 and all(p["label"].split("/")[-1][:8] == p["id"][:8] for p in pairs)
+
+
+def test_empty_folder(tmp_path):
+    assert find_pairs(tmp_path / "nothing", tmp_path / "nothing") == []
+
+
 def test_pairing_without_oasis_ids(tmp_path):
     for d in ("img", "lab"):
         (tmp_path / d).mkdir()
